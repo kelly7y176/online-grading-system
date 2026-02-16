@@ -1,3 +1,20 @@
+# =====================================================
+# CS425 Assignment Grading System - Docker Compose
+# =====================================================
+# This file orchestrates all containers for the system.
+# 
+# Usage:
+#   docker-compose up -d        # Start all services
+#   docker-compose down         # Stop all services
+#   docker-compose logs -f      # View logs
+#   docker-compose exec app bash # Access PHP container
+#
+# TODO for students:
+# - Add Redis for caching
+# - Add phpMyAdmin for database management
+# - Configure for production deployment
+# =====================================================
+
 name: online-grading-system
 version: '3.8'
 

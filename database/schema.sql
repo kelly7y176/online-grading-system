@@ -107,6 +107,11 @@ CREATE TABLE IF NOT EXISTS rubric_grades (
     INDEX idx_submission (submission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- 1.SQL Optimization (Adding Indexes)
+CREATE INDEX idx_submission_assignment ON submissions(assignment_id);
+CREATE INDEX idx_submission_student ON submissions(student_id);
+CREATE INDEX idx_rubric_grades_submission ON rubric_grades(submission_id);
+
 -- =====================================================
 -- Sample Data (Optional - for testing)
 -- =====================================================

@@ -567,7 +567,7 @@ select.form-control {
   }
 }
 
-/* 2. Mobile Responsiveness (Hamburger Menu)*/
+/* 2. Mobile Responsiveness (Hamburger Menu) */
 @media (max-width: 768px) {
   .sidebar {
     display: none;

@@ -1,0 +1,12 @@
+# Mac system files
+.DS_Store
+
+# Docker / Database data (never upload raw DB files)
+docker/mysql_data/
+
+# Uploaded student files (keep the folder, ignore the content)
+app/uploads/*
+!app/uploads/.gitkeep
+
+# Private environment variables
+.env

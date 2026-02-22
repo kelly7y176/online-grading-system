@@ -65,12 +65,6 @@ if (file_exists($configPath)) {
             </a>
         </div>
     </form>
-    <div class="mt-8 flex justify-center">
-            <button onclick="toggleTheme()" class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-blue-600 transition flex items-center gap-2">
-                <i class="fas fa-circle-half-stroke"></i>
-                Switch Appearance
-            </button>
-        </div>
 </div>
 
 

@@ -2,9 +2,7 @@
 /**
  * Application Configuration
  * CS425 Assignment Grading System - Starter Codebase
- * 
- * Contains application-wide settings and constants.
- * Students can modify these for customization.
+ * * Contains application-wide settings and constants.
  */
 
 // Start session if not already started
@@ -23,23 +21,16 @@ $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 define('BASE_URL', $protocol . '://' . $host);
 
 // File paths
-define('ROOT_PATH', dirname(dirname(__FILE__)));
+define('ROOT_PATH', dirname(__DIR__));
 define('UPLOAD_PATH', ROOT_PATH . '/uploads/');
-define('MAX_FILE_SIZE', 10 * 1024 * 1024); // 10MB max file size
+define('MAX_FILE_SIZE', 10 * 1024 * 1024); // 10MB
 
-// Allowed file types for submissions
+// Allowed file types
 define('ALLOWED_FILE_TYPES', ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar']);
-
-// API Configuration
-define('API_BASE_URL', BASE_URL . '/api');
-define('API_VERSION', 'v1');
 
 // Security settings
 define('CSRF_TOKEN_NAME', 'csrf_token');
 define('PASSWORD_MIN_LENGTH', 8);
-
-// Pagination settings
-define('ITEMS_PER_PAGE', 10);
 
 // Date/Time settings
 date_default_timezone_set('UTC');
@@ -55,12 +46,13 @@ if (APP_ENV === 'development') {
     ini_set('display_errors', 0);
 }
 
-// Include required files
+// Include database connection
 require_once ROOT_PATH . '/config/database.php';
+
+/* --- HELPER FUNCTIONS --- */
 
 /**
  * Generate CSRF token
- * @return string
  */
 function generateCSRFToken() {
     if (empty($_SESSION[CSRF_TOKEN_NAME])) {
@@ -71,28 +63,20 @@ function generateCSRFToken() {
 
 /**
  * Validate CSRF token
- * @param string $token
- * @return bool
  */
 function validateCSRFToken($token) {
     return isset($_SESSION[CSRF_TOKEN_NAME]) && hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
 }
 
 /**
- * Sanitize input data
- * @param string $data
- * @return string
+ * Sanitize input
  */
 function sanitize($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-    return $data;
+    return htmlspecialchars(stripslashes(trim($data)), ENT_QUOTES, 'UTF-8');
 }
 
 /**
- * Redirect to a URL
- * @param string $url
+ * Redirect
  */
 function redirect($url) {
     header("Location: " . $url);
@@ -100,42 +84,30 @@ function redirect($url) {
 }
 
 /**
- * Check if user is logged in
- * @return bool
+ * Auth Helpers
  */
 function isLoggedIn() {
     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 }
 
-/**
- * Check if user is instructor
- * @return bool
- */
 function isInstructor() {
     return isLoggedIn() && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'instructor';
 }
 
-/**
- * Check if user is student
- * @return bool
- */
 function isStudent() {
     return isLoggedIn() && isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student';
 }
 
 /**
- * Flash message helper
- * @param string $type - success, error, warning, info
- * @param string $message
+ * Flash Message Helpers
  */
 function setFlashMessage($type, $message) {
-    $_SESSION['flash'] = ['type' => $type, 'message' => $message];
+    $_SESSION['flash'] = [
+        'type' => $type,
+        'message' => $message
+    ];
 }
 
-/**
- * Get and clear flash message
- * @return array|null
- */
 function getFlashMessage() {
     if (isset($_SESSION['flash'])) {
         $flash = $_SESSION['flash'];

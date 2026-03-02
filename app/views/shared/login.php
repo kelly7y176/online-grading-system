@@ -1,3 +1,20 @@
+<?php
+/**
+ * Login View
+ * Path: /app/views/shared/login.php
+ */
+
+// We are in /views/shared/, so we go UP two levels to find /config/ and /controllers/
+require_once dirname(dirname(__DIR__)) . '/config/config.php';
+require_once dirname(dirname(__DIR__)) . '/controllers/AuthController.php';
+
+$auth = new AuthController();
+
+// Handle Login Logic
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $auth->login();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark') ? 'dark' : ''; ?>">
 <head>
@@ -47,7 +64,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="login.php" method="POST" data-ajax data-validate class="space-y-6">
+            <form action="login.php" method="POST" class="space-y-6">
                 <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                 
                 <div class="space-y-2">
@@ -63,7 +80,7 @@
                 <div class="space-y-2">
                     <div class="flex justify-between items-center ml-2">
                         <label for="password" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Password</label>
-                        <a href="views/shared/forgot-password.php" class="text-[10px] font-black uppercase text-blue-600 hover:underline">Forgot?</a>
+                        <a href="forgot-password.php" class="text-[10px] font-black uppercase text-blue-600 hover:underline">Forgot?</a>
                     </div>
                     <div class="relative">
                         <i class="fas fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
@@ -81,7 +98,7 @@
             <div class="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                 <p class="text-sm font-medium text-slate-500">
                     Don't have an account? 
-                    <a href="<?php echo BASE_URL; ?>/register.php" class="text-blue-600 font-black uppercase tracking-tight hover:underline ml-1">Register here</a>
+                    <a href="register.php" class="text-blue-600 font-black uppercase tracking-tight hover:underline ml-1">Register here</a>
                 </p>
             </div>
         </div>

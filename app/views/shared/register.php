@@ -1,3 +1,12 @@
+<?php
+/**
+ * Registration View
+ * Path: /app/views/shared/register.php
+ */
+
+// We go UP two levels from /views/shared/ to find /config/
+require_once dirname(dirname(__DIR__)) . '/config/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark') ? 'dark' : ''; ?>">
 <head>
@@ -19,7 +28,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        /* Smooth select arrow styling */
         select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 1rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
     </style>
 </head>
@@ -47,7 +55,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="<?php echo BASE_URL; ?>/register.php" method="POST" class="space-y-5">
+            <form action="../../register.php" method="POST" class="space-y-5">
                 <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -99,7 +107,7 @@
             <div class="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
                 <p class="text-sm font-medium text-slate-500">
                     Already have an account? 
-                    <a href="<?php echo BASE_URL; ?>/login.php" class="text-blue-600 font-black uppercase tracking-tight hover:underline ml-1">Login here</a>
+                    <a href="../../login.php" class="text-blue-600 font-black uppercase tracking-tight hover:underline ml-1">Login here</a>
                 </p>
             </div>
         </div>
